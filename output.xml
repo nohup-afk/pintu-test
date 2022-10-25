@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 6.0 (Python 3.10.6 on win32)" generated="20221025 08:23:39.402" rpa="false" schemaversion="3">
-<suite id="s1" name="Mobileapp" source="F:\pintu-test\mobile-test\test\mobileapp.robot">
-<test id="s1-t1" name="Test open App" line="12">
+<robot generator="Robot 4.1.2 (Python 3.9.9 on darwin)" generated="20221025 09:44:32.392" rpa="false" schemaversion="2">
+<suite id="s1" name="Mobileapp" source="/Users/mabdulaziz/pintu-test/mobile-test/test/mobileapp.robot">
+<test id="s1-t1" name="Login To Apps">
 <kw name="Open Mobile App application" library="common">
 <kw name="Open Application" library="AppiumLibrary">
 <arg>http://127.0.0.1:4723/wd/hub</arg>
@@ -15,34 +15,60 @@ Please check https://github.com/appium/appium/blob/master/docs/en/writing-runnin
 | *Option*            | *Man.* | *Description*     |
 | remote_url          | Yes    | Appium server url |
 | alias               | no     | alias             |</doc>
-<kw name="Capture Page Screenshot" library="AppiumLibrary">
-<doc>Takes a screenshot of the current page and embeds it into the log.</doc>
-<msg timestamp="20221025 08:23:39.601" level="FAIL">No application is open</msg>
-<status status="FAIL" starttime="20221025 08:23:39.600" endtime="20221025 08:23:39.602"/>
+<status status="PASS" starttime="20221025 09:44:32.666" endtime="20221025 09:44:51.068"/>
 </kw>
-<msg timestamp="20221025 08:23:39.603" level="WARN">Keyword 'Capture Page Screenshot' could not be run on failure: No application is open</msg>
-<msg timestamp="20221025 08:23:39.604" level="FAIL">WebDriverException: Message: An unknown server-side error occurred while processing the command. Original error: Neither ANDROID_HOME nor ANDROID_SDK_ROOT environment variable was exported. Read https://developer.android.com/studio/command-line/variables for more details
-</msg>
-<status status="FAIL" starttime="20221025 08:23:39.539" endtime="20221025 08:23:39.604"/>
+<status status="PASS" starttime="20221025 09:44:32.666" endtime="20221025 09:44:51.069"/>
 </kw>
-<status status="FAIL" starttime="20221025 08:23:39.539" endtime="20221025 08:23:39.604"/>
+<kw name="Input user Email">
+<arg>${useremail}</arg>
+<kw name="Input Text" library="AppiumLibrary">
+<arg>com.loginmodule.learning:id/textInputEditTextEmail</arg>
+<arg>${args1}</arg>
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<msg timestamp="20221025 09:44:51.072" level="INFO">Typing text 'Jon@smith.com' into text field 'com.loginmodule.learning:id/textInputEditTextEmail'</msg>
+<status status="PASS" starttime="20221025 09:44:51.070" endtime="20221025 09:44:52.379"/>
 </kw>
-<status status="FAIL" starttime="20221025 08:23:39.538" endtime="20221025 08:23:39.604">WebDriverException: Message: An unknown server-side error occurred while processing the command. Original error: Neither ANDROID_HOME nor ANDROID_SDK_ROOT environment variable was exported. Read https://developer.android.com/studio/command-line/variables for more details
-</status>
+<status status="PASS" starttime="20221025 09:44:51.069" endtime="20221025 09:44:52.380"/>
+</kw>
+<kw name="Input user password">
+<arg>${userpassword}</arg>
+<kw name="Input Text" library="AppiumLibrary">
+<arg>com.loginmodule.learning:id/textInputEditTextPassword</arg>
+<arg>${args1}</arg>
+<doc>Types the given `text` into text field identified by `locator`.</doc>
+<msg timestamp="20221025 09:44:52.386" level="INFO">Typing text 'Jonnyherewego' into text field 'com.loginmodule.learning:id/textInputEditTextPassword'</msg>
+<status status="PASS" starttime="20221025 09:44:52.382" endtime="20221025 09:44:53.202"/>
+</kw>
+<kw name="Hide Keyboard" library="AppiumLibrary">
+<doc>Hides the software keyboard on the device. (optional) In iOS, use `key_name` to press
+a particular key, ex. `Done`. In Android, no parameters are used.</doc>
+<status status="PASS" starttime="20221025 09:44:53.202" endtime="20221025 09:44:53.302"/>
+</kw>
+<status status="PASS" starttime="20221025 09:44:52.380" endtime="20221025 09:44:53.302"/>
+</kw>
+<kw name="Click Button login">
+<kw name="Click Element" library="AppiumLibrary">
+<arg>com.loginmodule.learning:id/appCompatButtonLogin</arg>
+<doc>Click element identified by `locator`.</doc>
+<msg timestamp="20221025 09:44:53.306" level="INFO">Clicking element 'com.loginmodule.learning:id/appCompatButtonLogin'.</msg>
+<status status="PASS" starttime="20221025 09:44:53.303" endtime="20221025 09:44:53.847"/>
+</kw>
+<status status="PASS" starttime="20221025 09:44:53.303" endtime="20221025 09:44:53.847"/>
+</kw>
+<status status="PASS" starttime="20221025 09:44:32.666" endtime="20221025 09:44:53.847"/>
 </test>
-<status status="FAIL" starttime="20221025 08:23:39.404" endtime="20221025 08:23:39.605"/>
+<status status="PASS" starttime="20221025 09:44:32.395" endtime="20221025 09:44:53.849"/>
 </suite>
 <statistics>
 <total>
-<stat pass="0" fail="1" skip="0">All Tests</stat>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
 </total>
 <tag>
 </tag>
 <suite>
-<stat pass="0" fail="1" skip="0" id="s1" name="Mobileapp">Mobileapp</stat>
+<stat pass="1" fail="0" skip="0" id="s1" name="Mobileapp">Mobileapp</stat>
 </suite>
 </statistics>
 <errors>
-<msg timestamp="20221025 08:23:39.603" level="WARN">Keyword 'Capture Page Screenshot' could not be run on failure: No application is open</msg>
 </errors>
 </robot>

@@ -5,7 +5,7 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="-1">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta content="Robot Framework 6.0 (Python 3.10.6 on win32)" name="Generator">
+<meta content="Robot Framework 4.1.2 (Python 3.9.9 on darwin)" name="Generator">
 <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64,AAABAAEAEBAAAAEAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKcAAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAAqAAAAAAAAAAAAAAAAAAAALIAAAD/AAAA4AAAANwAAADcAAAA3AAAANwAAADcAAAA3AAAANwAAADcAAAA4AAAAP8AAACxAAAAAAAAAKYAAAD/AAAAuwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC/AAAA/wAAAKkAAAD6AAAAzAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAN8AAAD/AAAA+gAAAMMAAAAAAAAAAgAAAGsAAABrAAAAawAAAGsAAABrAAAAawAAAGsAAABrAAAADAAAAAAAAADaAAAA/wAAAPoAAADDAAAAAAAAAIsAAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAANEAAAAAAAAA2gAAAP8AAAD6AAAAwwAAAAAAAAAAAAAAMgAAADIAAAAyAAAAMgAAADIAAAAyAAAAMgAAADIAAAAFAAAAAAAAANoAAAD/AAAA+gAAAMMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADaAAAA/wAAAPoAAADDAAAAAAAAADwAAAB8AAAAAAAAAGAAAABcAAAAAAAAAH8AAABKAAAAAAAAAAAAAAAAAAAA2gAAAP8AAAD6AAAAwwAAAAAAAADCAAAA/wAAACkAAADqAAAA4QAAAAAAAAD7AAAA/wAAALAAAAAGAAAAAAAAANoAAAD/AAAA+gAAAMMAAAAAAAAAIwAAAP4AAAD/AAAA/wAAAGAAAAAAAAAAAAAAAMkAAAD/AAAAigAAAAAAAADaAAAA/wAAAPoAAADDAAAAAAAAAAAAAAAIAAAAcAAAABkAAAAAAAAAAAAAAAAAAAAAAAAAEgAAAAAAAAAAAAAA2gAAAP8AAAD7AAAAywAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAN4AAAD/AAAAqwAAAP8AAACvAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAALIAAAD/AAAAsgAAAAAAAAC5AAAA/wAAAMoAAADAAAAAwAAAAMAAAADAAAAAwAAAAMAAAADAAAAAwAAAAMkAAAD/AAAAvAAAAAAAAAAAAAAAAAAAAKwAAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAA/wAAAP8AAAD/AAAArQAAAAAAAAAAwAMAAIABAAAf+AAAP/wAAD/8AAAgBAAAP/wAAD/8AAA//AAAJIwAADHEAAA//AAAP/wAAB/4AACAAQAAwAMAAA==">
 <style media="all" type="text/css">
 /* Generic and misc styles */
@@ -318,9 +318,6 @@ th.stats-col-graph:hover {
     top: 0;
     padding: 3px;
     cursor: default;
-}
-.element-header .label {
-    margin-right: 0.5em;
 }
 .name {
     font-weight: bold;
@@ -969,7 +966,6 @@ window.model = (function () {
     }
     function Keyword(data) {
         var kw = createModelObject(data);
-        var flatTypes = ['RETURN', 'BREAK', 'CONTINUE'];
         kw.libname = data.libname;
         kw.fullName = (kw.libname ? kw.libname + '.' : '') + kw.name;
         kw.type = data.type;
@@ -1354,8 +1350,8 @@ window.testdata = function () {
     var _statistics = null;
     var LEVELS = ['TRACE', 'DEBUG', 'INFO', 'WARN', 'ERROR', 'FAIL', 'SKIP'];
     var STATUSES = ['FAIL', 'PASS', 'SKIP', 'NOT RUN'];
-    var KEYWORD_TYPES = ['KEYWORD', 'SETUP', 'TEARDOWN', 'FOR', 'ITERATION', 'IF', 'ELSE IF', 'ELSE', 'RETURN',
-                         'TRY', 'EXCEPT', 'FINALLY', 'WHILE', 'CONTINUE', 'BREAK'];
+    var KEYWORD_TYPES = ['KEYWORD', 'SETUP', 'TEARDOWN', 'FOR', 'VAR', 'IF', 'ELSE IF', 'ELSE'];
+    var MESSAGE_TYPE = 8;
     function addElement(elem) {
         if (!elem.id)
             elem.id = uniqueId();
@@ -1376,10 +1372,10 @@ window.testdata = function () {
                 elapsed];
     }
     function createMessage(element, strings) {
-        return model.Message(LEVELS[element[1]],
-                             util.timestamp(element[0]),
-                             strings.get(element[2]),
-                             strings.get(element[3]));
+        return model.Message(LEVELS[element[2]],
+                             util.timestamp(element[1]),
+                             strings.get(element[3]),
+                             strings.get(element[4]));
     }
     function parseStatus(stats) {
         return STATUSES[stats[0]];
@@ -1390,7 +1386,7 @@ window.testdata = function () {
         };
     }
     function createBodyItem(parent, element, strings, index) {
-        if (element.length < 5)
+        if (element[0] == MESSAGE_TYPE)
             return createMessage(element, strings);
         var messages = util.filter(parent.children(), function (child) {
             return child.type == 'message';
@@ -1803,31 +1799,31 @@ function stopPropagation(event) {
 window.output = {};
 </script>
 <script type="text/javascript">
-window.output["suite"] = [1,2,3,0,[],[0,0,201],[],[[4,0,0,[],[0,134,66,5],[[0,6,7,0,0,0,0,0,[0,135,65],[[0,8,9,0,10,11,0,0,[0,135,65],[[0,12,9,0,13,0,0,0,[0,196,2],[[197,5,14]]],[199,3,16],[200,5,5]]]]]]]],[],[1,0,1,0]];
+window.output["suite"] = [1,2,3,0,[],[1,0,21454],[],[[4,0,0,[],[1,271,21181],[[0,5,6,0,0,0,0,0,[1,271,18403],[[0,7,8,0,9,10,0,0,[1,271,18402],[]]]],[0,11,0,0,0,12,0,0,[1,18674,1311],[[0,13,8,0,14,15,0,0,[1,18675,1309],[[8,18677,2,16]]]]],[0,17,0,0,0,18,0,0,[1,19985,922],[[0,13,8,0,14,19,0,0,[1,19987,820],[[8,19991,2,20]]],[0,21,8,0,22,0,0,0,[1,20807,100],[]]]],[0,23,0,0,0,0,0,0,[1,20908,544],[[0,24,8,0,25,26,0,0,[1,20908,544],[[8,20911,2,27]]]]]]]],[],[1,1,0,0]];
 </script>
 <script type="text/javascript">
 window.output["strings"] = [];
 </script>
 <script type="text/javascript">
-window.output["strings"] = window.output["strings"].concat(["*","*Mobileapp","*F:\\pintu-test\\mobile-test\\test\\mobileapp.robot","*mobile-test/test/mobileapp.robot","*Test open App","eNqlj0Fqw0AMRfc9hcg+nr1JAwEHWkJicAtdhonnxxa1JaMZ2zl+B9rSA3Qr6X29/4FbZbzAjo8WU2KVks6I0Xco6SA0y6foKhRh+WgbOYBgpkbatrMZAq09D6DJtM0cS0epB7U6jl5CQbVxx+KHb6qkCzjvjQ6Xqqlfq+tLfT6S6N/grTpdm7p+J8jCpjJCEi3e2N/ym9VHwmNSS8jhDXygnafecH/e9ClNsXQuYMGgE6zIBqYcimzjYpoDq/sR2w4scL+xcbP/B7xzfk/3XGFUAwUkz0N8+gIs/H2z","*Open Mobile App application","*common","*Open Application","*AppiumLibrary","eNq1UU1PwzAMvfMrrJ63RlxRFmmCKxoSJ07ISbw2InUiJ93+Pi3d1A3OXPzx/N6z4uhsDpm4AALTGTDnGBzWkBhqgi6ciGGfcxgHKCQnkhaeMaMNMdRABdJx1qzjDezZSwoekD2Ew/sG3iJhIXA9uS/QCL3Qcdf0tebypFQXaj/a1qVBLUbXZGOyasBSSZRPrihidZZpK3dbGZnnfKEuq7coXWkH35j/89YKjVbZPOiKNhLYJJ5k1zw2MyRz8Ebb6abzCbWyE3tCrvArcvsHfKHiJPwWqMXtYik0pEqfo8RV+kFlbe7+CFbevQ3GgDciTmt9O1pE6ueJ5htaB7wi","*<a href=\"http://127.0.0.1:4723/wd/hub\">http://127.0.0.1:4723/wd/hub\x3c/a>, automationName=UIAutomator2, platformName=Android, app=${pathApp}, platformVersion=${ANDROID_PLATFORM_VERSION}","*Capture Page Screenshot","*<p>Takes a screenshot of the current page and embeds it into the log.\x3c/p>","*No application is open","*s1-t1-k1-k1","*Keyword 'Capture Page Screenshot' could not be run on failure: No application is open"]);
+window.output["strings"] = window.output["strings"].concat(["*","*Mobileapp","*/Users/mabdulaziz/pintu-test/mobile-test/test/mobileapp.robot","*mobile-test/test/mobileapp.robot","*Login To Apps","*Open Mobile App application","*common","*Open Application","*AppiumLibrary","eNq1UU1PwzAMvfMrrJ63RlxRFmmCKxoSJ07ISbw2InUiJ93+Pi3d1A3OXPzx/N6z4uhsDpm4AALTGTDnGBzWkBhqgi6ciGGfcxgHKCQnkhaeMaMNMdRABdJx1qzjDezZSwoekD2Ew/sG3iJhIXA9uS/QCL3Qcdf0tebypFQXaj/a1qVBLUbXZGOyasBSSZRPrihidZZpK3dbGZnnfKEuq7coXWkH35j/89YKjVbZPOiKNhLYJJ5k1zw2MyRz8Ebb6abzCbWyE3tCrvArcvsHfKHiJPwWqMXtYik0pEqfo8RV+kFlbe7+CFbevQ3GgDciTmt9O1pE6ueJ5htaB7wi","*<a href=\"http://127.0.0.1:4723/wd/hub\">http://127.0.0.1:4723/wd/hub\x3c/a>, automationName=UIAutomator2, platformName=Android, app=${pathApp}, platformVersion=${ANDROID_PLATFORM_VERSION}","*Input user Email","*${useremail}","*Input Text","*<p>Types the given `text` into text field identified by `locator`.\x3c/p>","*com.loginmodule.learning:id/textInputEditTextEmail, ${args1}","*Typing text 'Jon@smith.com' into text field 'com.loginmodule.learning:id/textInputEditTextEmail'","*Input user password","*${userpassword}","*com.loginmodule.learning:id/textInputEditTextPassword, ${args1}","*Typing text 'Jonnyherewego' into text field 'com.loginmodule.learning:id/textInputEditTextPassword'","*Hide Keyboard","*<p>Hides the software keyboard on the device. (optional) In iOS, use `key_name` to press a particular key, ex. `Done`. In Android, no parameters are used.\x3c/p>","*Click Button login","*Click Element","*<p>Click element identified by `locator`.\x3c/p>","*com.loginmodule.learning:id/appCompatButtonLogin","*Clicking element 'com.loginmodule.learning:id/appCompatButtonLogin'."]);
 </script>
 <script type="text/javascript">
-window.output["stats"] = [[{"elapsed":"00:00:00","fail":1,"label":"All Tests","pass":0,"skip":0}],[],[{"elapsed":"00:00:00","fail":1,"id":"s1","label":"Mobileapp","name":"Mobileapp","pass":0,"skip":0}]];
+window.output["stats"] = [[{"elapsed":"00:00:21","fail":0,"label":"All Tests","pass":1,"skip":0}],[],[{"elapsed":"00:00:21","fail":0,"id":"s1","label":"Mobileapp","name":"Mobileapp","pass":1,"skip":0}]];
 </script>
 <script type="text/javascript">
-window.output["errors"] = [[199,3,16,15]];
+window.output["errors"] = [];
 </script>
 <script type="text/javascript">
-window.output["baseMillis"] = 1666661019404;
+window.output["baseMillis"] = 1666665872395;
 </script>
 <script type="text/javascript">
-window.output["generated"] = 204;
+window.output["generated"] = 21461;
 </script>
 <script type="text/javascript">
 window.output["expand_keywords"] = null;
 </script>
 <script type="text/javascript">
-window.settings = {"defaultLevel":"INFO","minLevel":"WARN","reportURL":"report.html","rpa":false,"splitLogBase":"log","title":""};
+window.settings = {"defaultLevel":"INFO","minLevel":"INFO","reportURL":"report.html","rpa":false,"splitLogBase":"log","title":""};
 </script>
 <title></title>
 </head>
@@ -2127,7 +2123,7 @@ function addExecutionLog(main) {
     <div class="element-header closed" onclick="toggleKeyword('${id}')">
       <div class="element-header-left" title="${type}  {{if name}}{{html fullName}}  {{/if}}[${status}]">
         <span class="elapsed" title="Elapsed time">${times.elapsedTime}</span>
-        <span class="label ${status.toLowerCase()}">${type}</span>
+        <span class="label keyword ${status.toLowerCase()}">${type}</span>
         <span>{{html assign}}</span>
         <span class="name"><span class="parent-name">{{html libname}}{{if libname}} . {{/if}}</span>{{html name}}</span>
         <span class="arg">{{html arguments}}</span>
@@ -2135,7 +2131,7 @@ function addExecutionLog(main) {
       <div class="element-header-right" onclick="stopPropagation(event)">
         <a class="expand" title="Expand all" href="javascript:expandAll('${id}')"></a>
         <a class="collapse" title="Collapse all" href="javascript:collapseAll('${id}')"></a>
-        <a class="link" title="Link to this item" href="#${id}" onclick="makeElementVisible('${id}')"></a>
+        <a class="link" title="Link to this keyword" href="#${id}" onclick="makeElementVisible('${id}')"></a>
       </div>
       <div class="element-header-toggle" title="Toggle visibility"></div>
     </div>
